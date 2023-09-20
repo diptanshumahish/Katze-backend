@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import router from "./router/index";
 // import dotenv from "dotenv";
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 app.use(
     cors({
         credentials: true,
