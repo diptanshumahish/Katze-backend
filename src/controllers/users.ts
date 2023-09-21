@@ -48,7 +48,12 @@ export const updateUser = async (
             user.username = username;
             const usernameTaken = await getUserByUserName(username);
             if (usernameTaken) {
-                return sendResponse(res, 400, "username exists");
+                return sendResponse(
+                    res,
+                    400,
+                    "username exists",
+                    "username must be unique as you"
+                );
             }
         }
         if (writtenBlogs !== undefined) {

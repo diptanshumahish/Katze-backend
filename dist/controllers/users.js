@@ -35,7 +35,7 @@ const updateUser = async (req, res) => {
             user.username = username;
             const usernameTaken = await (0, users_1.getUserByUserName)(username);
             if (usernameTaken) {
-                return (0, response_1.sendResponse)(res, 400, "username exists");
+                return (0, response_1.sendResponse)(res, 400, "username exists", "username must be unique as you");
             }
         }
         if (writtenBlogs !== undefined) {

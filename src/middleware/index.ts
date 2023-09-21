@@ -13,10 +13,20 @@ export const isOwner = async (
         const { id } = req.params;
         const currentUserId = get(req, "identity._id") as string;
         if (!currentUserId) {
-            return sendResponse(res, 400, "cant delete");
+            return sendResponse(
+                res,
+                400,
+                "cant delete",
+                "Can't process try again"
+            );
         }
         if (currentUserId.toString() !== id) {
-            return sendResponse(res, 400, "You can't delete others accounts");
+            return sendResponse(
+                res,
+                400,
+                "You can't delete others accounts",
+                "Do not try to delete others account"
+            );
         }
         next();
     } catch (error) {
@@ -33,11 +43,16 @@ export const isAuthenticated = async (
     try {
         const sessionToken = req.cookies["Katze-cookie"];
         if (!sessionToken) {
-            return sendResponse(res, 400, "Session expired");
+            return sendResponse(
+                res,
+                400,
+                "Session expired",
+                "Session has expired "
+            );
         }
         const existingUser = await getUserBySessionToken(sessionToken);
         if (!existingUser) {
-            return sendResponse(res, 400, "Invalid token");
+            return sendResponse(res, 400, "Invalid token", "invalid");
         }
         merge(req, { identity: existingUser });
         return next();
